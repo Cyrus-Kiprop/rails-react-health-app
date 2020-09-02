@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_185620) do
+ActiveRecord::Schema.define(version: 2020_09_02_204020) do
+
+  create_table "body_parts", force: :cascade do |t|
+    t.string "name"
+    t.integer "size"
+    t.integer "measure_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["measure_id"], name: "index_body_parts_on_measure_id"
+  end
+
+  create_table "measures", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_measures_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -20,4 +36,6 @@ ActiveRecord::Schema.define(version: 2020_09_02_185620) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "body_parts", "measures"
+  add_foreign_key "measures", "users"
 end
