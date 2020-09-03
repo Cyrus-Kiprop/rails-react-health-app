@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe "Measures", type: :request do
  # initialize test data
   let!(:user) { create(:user) }
-  let!(:measurements) { create_list(:measure, 10, user_id: user.id) }
-  let(:measure_id) { measurements.first.id }
+  let!(:measures) { create_list(:measure, 10, user_id: user.id) }
+  let(:measure_id) { measures.first.id }
 
-  # Test suite for GET /measurements
-  describe 'GET /measurements' do
+  # Test suite for GET /measures
+  describe 'GET /measures' do
     # make HTTP get request before each example
-    before { get '/measurements' }
+    before { get '/measures' }
 
-    it 'returns measurements' do
+    it 'returns measures' do
       # Note `json` is a custom helper to parse JSON responses
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
@@ -22,9 +22,9 @@ RSpec.describe "Measures", type: :request do
     end
   end
 
-  # Test suite for GET /measurements/:id
-  describe 'GET /measurements/:id' do
-    before { get "/measurements/#{measure_id}" }
+  # Test suite for GET /measures/:id
+  describe 'GET /measures/:id' do
+    before { get "/measures/#{measure_id}" }
 
     context 'when the record exists' do
       it 'returns the todo' do
@@ -50,13 +50,13 @@ RSpec.describe "Measures", type: :request do
     end
   end
 
-  # Test suite for POST /measurements
-  describe 'POST /measurements' do
+  # Test suite for POST /measures
+  describe 'POST /measures' do
     # valid payload
     let(:valid_attributes) { { user_id: 1 } }
 
     context 'when the request is valid' do
-      before { post '/measurements', params: valid_attributes }
+      before { post '/measures', params: valid_attributes }
 
       it 'creates a todo' do
         expect(json['user_id']).to eq( 1 )
@@ -68,7 +68,7 @@ RSpec.describe "Measures", type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/measurements', params: {  } }
+      before { post '/measures', params: {  } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -81,9 +81,9 @@ RSpec.describe "Measures", type: :request do
     end
   end
 
-  # Test suite for DELETE /measurements/:id
-  describe 'DELETE /measurements/:id' do
-    before { delete "/measurements/#{measure_id}" }
+  # Test suite for DELETE /measures/:id
+  describe 'DELETE /measures/:id' do
+    before { delete "/measures/#{measure_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
