@@ -57,6 +57,7 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
     ast (2.4.1)
+    bcrypt (3.1.15)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -100,6 +101,7 @@ GEM
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
+    pg (0.18.4)
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
@@ -180,7 +182,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
@@ -195,12 +196,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
   database_cleaner
   factory_bot_rails
   faker
   listen (~> 3.2)
+  pg (~> 0.18.4)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
   rspec-rails
@@ -208,7 +211,6 @@ DEPENDENCIES
   shoulda-matchers
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION
