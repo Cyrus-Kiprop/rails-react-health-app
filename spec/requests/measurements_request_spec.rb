@@ -37,7 +37,7 @@ RSpec.describe "Measurements", type: :request do
 
   # Test suite for GET /measures/:measure_id/measurements/:id
   describe 'GET /measures/:measure_id/measurements/:id' do
-    before { get "/measures/#{measure_id}/measurements/#{id}" }
+    before { get "/measures/#{measure_id}/measurements/#{id}", params: {}, headers: headers }
 
     context 'when measure measurement exists' do
       it 'returns status code 200' do
@@ -61,4 +61,30 @@ RSpec.describe "Measurements", type: :request do
       end
     end
   end
+
+  # Test suite for POST /measures/:measure_id/measurements
+  describe 'POST /measures/:measure_id/measurements' do
+    let(:valid_attributes) { { size: 4 }.to_json }
+
+    context 'when request attributes are valid' do
+      before { post "/measures/#{measure_id}/measurements", params: valid_attributes, headers: headers}
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when an invalid request' do
+      before { post "/measures/#{measure_id}/measurements", params: {}, headers: headers }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a failure message' do
+        expect(response.body).to match(/Validation failed: Size can't be blank/)
+      end
+    end
+  end
+
 end
