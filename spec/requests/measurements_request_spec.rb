@@ -30,7 +30,7 @@ RSpec.describe 'Measurements', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find measure/)
+        expect(response.body).to match("{\"message\":\"Couldn't find Measure with 'id'=0\"}")
       end
     end
   end
@@ -89,7 +89,7 @@ RSpec.describe 'Measurements', type: :request do
 
   # Test suite for PUT /measures/:measure_id/measurements/:id
   describe 'PUT /measures/:measure_id/measurements/:id' do
-    let(:valid_attributes) { { size: 67 } }
+    let(:valid_attributes) { { size: 67 }.to_json }
 
     before { put "/measures/#{measure_id}/measurements/#{id}", params: valid_attributes, headers: headers }
 
@@ -100,7 +100,7 @@ RSpec.describe 'Measurements', type: :request do
 
       it 'updates the measurement' do
         updated_measurement = Measurement.find(id)
-        expect(updated_measurement.name).to match(/67/)
+        expect(updated_measurement.size).to match(/67/)
       end
     end
 
@@ -112,7 +112,7 @@ RSpec.describe 'Measurements', type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find measurement/)
+        expect(response.body).to match(+"{\"message\":\"Couldn't find Measurement with [WHERE \\\"measurements\\\".\\\"measure_id\\\" = $1 AND \\\"measurements\\\".\\\"id\\\" = $2]\"}")
       end
     end
   end
