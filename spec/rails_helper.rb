@@ -51,7 +51,9 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper
+
+  config.include ControllerSpecHelper
 
   config.include FactoryBot::Syntax::Methods
 

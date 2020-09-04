@@ -2,14 +2,17 @@ require 'rails_helper'
 
 RSpec.describe "Measures", type: :request do
  # initialize test data
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
   let!(:measures) { create_list(:measure, 10, user_id: user.id) }
   let(:measure_id) { measures.first.id }
+
+  # authorize_request
+  let(:headers) { valid_headers }
 
   # Test suite for GET /measures
   describe 'GET /measures' do
     # make HTTP get request before each example
-    before { get '/measures' }
+    before { get '/measures', params: {}, headers: headers }
 
     it 'returns measures' do
       # Note `json` is a custom helper to parse JSON responses
@@ -24,10 +27,10 @@ RSpec.describe "Measures", type: :request do
 
   # Test suite for GET /measures/:id
   describe 'GET /measures/:id' do
-    before { get "/measures/#{measure_id}" }
+    before { get "/measures/#{measure_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
-      it 'returns the todo' do
+      it 'returns the measure item' do
         expect(json).not_to be_empty
         expect(json['id']).to eq(measure_id)
       end
@@ -53,10 +56,10 @@ RSpec.describe "Measures", type: :request do
   # Test suite for POST /measures
   describe 'POST /measures' do
     # valid payload
-    let(:valid_attributes) { { user_id: 1 } }
+    let(:valid_attributes) { { user_id: 1, body_part: "Thighs" } }
 
     context 'when the request is valid' do
-      before { post '/measures', params: valid_attributes }
+      before { post '/measures', params: valid_attributes, headers: headers }
 
       it 'creates a todo' do
         expect(json['user_id']).to eq( 1 )
@@ -83,7 +86,7 @@ RSpec.describe "Measures", type: :request do
 
   # Test suite for DELETE /measures/:id
   describe 'DELETE /measures/:id' do
-    before { delete "/measures/#{measure_id}" }
+    before { delete "/measures/#{measure_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
