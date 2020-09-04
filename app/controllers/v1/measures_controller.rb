@@ -1,3 +1,4 @@
+module V1
 class MeasuresController < ApplicationController
   before_action :set_measure, only: %i[show update destroy]
 
@@ -35,4 +36,5 @@ class MeasuresController < ApplicationController
   def set_measure
     @measure = Measure.find(params[:id])
   end
+end
 end
