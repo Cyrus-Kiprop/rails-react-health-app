@@ -22,6 +22,9 @@ gem 'jwt'
 # serializer
 gem 'active_model_serializers'
 
+# Pagination gem
+gem 'will_paginate'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

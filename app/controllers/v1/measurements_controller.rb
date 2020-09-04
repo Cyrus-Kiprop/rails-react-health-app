@@ -5,7 +5,7 @@ module V1
 
     # GET /measures/:measure_id/measurements
     def index
-      json_response(@measure.measurements)
+      json_response(@measure.measurements.paginate(page: params[:page], per_page: 20))
     end
 
     # GET /measures/:measure_id/measurements/:id
