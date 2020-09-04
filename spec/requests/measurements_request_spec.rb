@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Measurements", type: :request do
+RSpec.describe 'Measurements', type: :request do
   let(:user) { create(:user) }
-  let!(:measure) { create(:measure) }
+  let!(:measure) { create(:measure, user_id: user.id) }
   let!(:measurement) { create_list(:measurement, 20, measure_id: measure.id) }
   let(:measure_id) { measure.id }
   let(:id) { measurement.first.id }
@@ -114,6 +114,15 @@ RSpec.describe "Measurements", type: :request do
       it 'returns a not found message' do
         expect(response.body).to match(/Couldn't find measurement/)
       end
+    end
+  end
+
+  # Test suite for DELETE /measures/:id
+  describe 'DELETE /measures/:measure_id/measurements/:id' do
+    before { delete "/measures/#{measure_id}/measurements/#{id}", params: {}, headers: headers}
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 
