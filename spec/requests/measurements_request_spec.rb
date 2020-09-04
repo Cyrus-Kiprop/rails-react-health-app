@@ -87,4 +87,34 @@ RSpec.describe "Measurements", type: :request do
     end
   end
 
+  # Test suite for PUT /measures/:measure_id/measurements/:id
+  describe 'PUT /measures/:measure_id/measurements/:id' do
+    let(:valid_attributes) { { size: 67 } }
+
+    before { put "/measures/#{measure_id}/measurements/#{id}", params: valid_attributes, headers: headers }
+
+    context 'when measurement exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+
+      it 'updates the measurement' do
+        updated_measurement = Measurement.find(id)
+        expect(updated_measurement.name).to match(/67/)
+      end
+    end
+
+    context 'when the measurement does not exist' do
+      let(:id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find measurement/)
+      end
+    end
+  end
+
 end
