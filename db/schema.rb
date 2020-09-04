@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_03_225140) do
+ActiveRecord::Schema.define(version: 2020_09_04_105048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2020_09_03_225140) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["measure_id"], name: "index_body_parts_on_measure_id"
+  end
+
+  create_table "measurements", force: :cascade do |t|
+    t.string "size"
+    t.bigint "measure_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["measure_id"], name: "index_measurements_on_measure_id"
   end
 
   create_table "measures", force: :cascade do |t|
@@ -41,5 +49,6 @@ ActiveRecord::Schema.define(version: 2020_09_03_225140) do
   end
 
   add_foreign_key "body_parts", "measures"
+  add_foreign_key "measurements", "measures"
   add_foreign_key "measures", "users"
 end
