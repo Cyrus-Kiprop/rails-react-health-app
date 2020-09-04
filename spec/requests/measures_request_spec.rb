@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Measures", type: :request do
+RSpec.describe 'Measures', type: :request do
  # initialize test data
   let(:user) { create(:user) }
   let!(:measures) { create_list(:measure, 10, user_id: user.id) }
@@ -48,7 +48,9 @@ RSpec.describe "Measures", type: :request do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find Todo/)
+        expect(response.body).to match(
+          "{\"message\":\"Couldn't find Measure with 'id'=100\"}"
+        )
       end
     end
   end
@@ -56,13 +58,15 @@ RSpec.describe "Measures", type: :request do
   # Test suite for POST /measures
   describe 'POST /measures' do
     # valid payload
-    let(:valid_attributes) { { user_id: 1, body_part: "Thighs" } }
+    let(:valid_attributes) do
+      {body_part_name: 'Thighs' }.to_json
+    end
 
     context 'when the request is valid' do
       before { post '/measures', params: valid_attributes, headers: headers }
 
       it 'creates a todo' do
-        expect(json['user_id']).to eq( 1 )
+        expect(json['user_id']).to eq(user.id)
       end
 
       it 'returns status code 201' do
@@ -71,7 +75,8 @@ RSpec.describe "Measures", type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/measures', params: {  } }
+      let(:invalid_attributes) { {  }.to_json }
+      before { post '/measures', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -79,7 +84,7 @@ RSpec.describe "Measures", type: :request do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: User_id can't be blank/)
+          .to match("{\"message\":\"Validation failed: Body part name can't be blank\"}")
       end
     end
   end
