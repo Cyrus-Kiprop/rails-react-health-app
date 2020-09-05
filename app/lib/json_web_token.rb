@@ -1,7 +1,7 @@
 # app/lib/json_web_token.rb
 class JsonWebToken
   # secret to encode and decode token
-  HMAC_SECRET = 'somesecretkeyissuestakingplacehere' 
+  HMAC_SECRET = 'somesecretkeyissuestakingplacehere'.freeze
 
   def self.encode(payload, exp = 24.hours.from_now)
     # set expiry to 24 hours from creation time

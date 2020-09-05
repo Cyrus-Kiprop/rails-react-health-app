@@ -5,6 +5,4 @@ class Measure < ApplicationRecord
   has_many :measurements, dependent: :destroy
 
   validates_presence_of(:body_part_name)
-
-
 end

@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Measures', type: :request do
- # initialize test data
+  # initialize test data
   let(:user) { create(:user) }
   let(:admin) { create(:user, admin: true) }
   let!(:measures) { create_list(:measure, 10, user_id: user.id) }
   let(:measure_id) { measures.first.id }
-
-
 
   # authorize_request
   let(:headers) { valid_headers(user.id) }
@@ -65,19 +63,17 @@ RSpec.describe 'Measures', type: :request do
       {body_part_name: 'Thighs' }.to_json
     end
 
-
     context 'when non-admin users try to access this endpoint' do
       before { post '/measures', params: valid_attributes, headers: valid_headers(user.id) }
 
       it 'return unauthorized request' do
-        expect(response.body).to match("{\"message\":\"Unauthorized request\"}")
+        expect(response.body).to match('{"message":"Unauthorized request"}')
       end
 
       it 'returns status code 201' do
         expect(response).to have_http_status(422)
       end
     end
-
 
     let(:headers) { valid_headers(admin.id) }
 
@@ -94,7 +90,7 @@ RSpec.describe 'Measures', type: :request do
     end
 
     context 'when the request is invalid' do
-      let(:invalid_attributes) { {  }.to_json }
+      let(:invalid_attributes) { { }.to_json }
 
       before { post '/measures', params: invalid_attributes, headers: headers }
 

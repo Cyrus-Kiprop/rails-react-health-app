@@ -67,7 +67,7 @@ RSpec.describe 'Measurements', type: :request do
     let(:valid_attributes) { { size: 4 }.to_json }
 
     context 'when request attributes are valid' do
-      before { post "/measures/#{measure_id}/measurements", params: valid_attributes, headers: headers}
+      before { post "/measures/#{measure_id}/measurements", params: valid_attributes, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
@@ -119,11 +119,10 @@ RSpec.describe 'Measurements', type: :request do
 
   # Test suite for DELETE /measures/:id
   describe 'DELETE /measures/:measure_id/measurements/:id' do
-    before { delete "/measures/#{measure_id}/measurements/#{id}", params: {}, headers: headers}
+    before { delete "/measures/#{measure_id}/measurements/#{id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
     end
   end
-
 end
