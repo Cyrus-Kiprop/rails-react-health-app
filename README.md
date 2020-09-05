@@ -11,7 +11,7 @@
   <h3 align="center">Health App API</h3>
 
   <p align="center">
-    A web App created in the fulfillment of Microverse mandatory Ruby on Rails capstone project.
+    A simple health api app.
     <br />
     <a href="https://github.com/Cyrus-Kiprop/rails-react-health-app/issues">Report Bug</a>
     ·
@@ -45,7 +45,7 @@ A progressive Health Tracking mobile web app. User can utilize the apps' exposed
 
 ## Api Documentation
 
-Click [ here ](https://afritrend.herokuapp.com/users/sign_in) for a live demo of the app.
+Click [ here ](https://web.postman.co/collections/8007314-882ee6da-afb0-49db-9eaa-4e9c94059972?version=latest&workspace=ab4298f5-d0f8-4bf1-8dc4-baa6db7fbe13) for api documentation.
 
 ### Built With
 
@@ -76,7 +76,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Ruby -v 2.7.1 -[click here](https://www.ruby-lang.org/en/)
 
-- Rails -v 5.2.4
+- Rails -v 5.2.4+
 
 ```sh
 gem install rails -v 5.2.4
@@ -216,4 +216,3 @@ Distributed under the MIT License. See [ LICENSE ](https://github.com/Cyrus-Kipr
 [stars-url]: https://github.com/Cyrus-Kiprop/rails-react-health-app/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Cyrus-Kiprop/rails-react-health-app.svg?style=flat-square
 [issues-url]: https://github.com/Cyrus-Kiprop/rails-react-health-app/issues
-[product-screenshot]: /app/assets/images/screenshot.png
