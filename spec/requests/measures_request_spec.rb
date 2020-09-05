@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Measures', type: :request do
  # initialize test data
   let(:user) { create(:user) }
+  let(:admin) { create(:user, admin: true) }
   let!(:measures) { create_list(:measure, 10, user_id: user.id) }
   let(:measure_id) { measures.first.id }
 
+
+
   # authorize_request
-  let(:headers) { valid_headers }
+  let(:headers) { valid_headers(user.id) }
 
   # Test suite for GET /measures
   describe 'GET /measures' do
@@ -62,11 +65,27 @@ RSpec.describe 'Measures', type: :request do
       {body_part_name: 'Thighs' }.to_json
     end
 
+
+    context 'when non-admin users try to access this endpoint' do
+      before { post '/measures', params: valid_attributes, headers: valid_headers(user.id) }
+
+      it 'return unauthorized request' do
+        expect(response.body).to match("{\"message\":\"Unauthorized request\"}")
+      end
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(422)
+      end
+    end
+
+
+    let(:headers) { valid_headers(admin.id) }
+
     context 'when the request is valid' do
       before { post '/measures', params: valid_attributes, headers: headers }
 
       it 'creates a todo' do
-        expect(json['user_id']).to eq(user.id)
+        expect(json['user_id']).to eq(admin.id)
       end
 
       it 'returns status code 201' do
@@ -76,6 +95,7 @@ RSpec.describe 'Measures', type: :request do
 
     context 'when the request is invalid' do
       let(:invalid_attributes) { {  }.to_json }
+
       before { post '/measures', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
@@ -91,6 +111,7 @@ RSpec.describe 'Measures', type: :request do
 
   # Test suite for DELETE /measures/:id
   describe 'DELETE /measures/:id' do
+    let(:headers) { valid_headers(admin.id) }
     before { delete "/measures/#{measure_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do

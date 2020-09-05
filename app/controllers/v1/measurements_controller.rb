@@ -2,6 +2,7 @@ module V1
   class MeasurementsController < ApplicationController
     before_action :set_measure
     before_action :set_measure_item, only: %i[show update destroy]
+    skip_before_action :admin?
 
     # GET /measures/:measure_id/measurements
     def index
