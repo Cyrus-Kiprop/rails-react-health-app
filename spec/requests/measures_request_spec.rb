@@ -60,7 +60,7 @@ RSpec.describe 'Measures', type: :request do
   describe 'POST /measures' do
     # valid payload
     let(:valid_attributes) do
-      {body_part_name: 'Thighs' }.to_json
+      { body_part_name: 'Thighs' }.to_json
     end
 
     context 'when non-admin users try to access this endpoint' do
@@ -90,7 +90,7 @@ RSpec.describe 'Measures', type: :request do
     end
 
     context 'when the request is invalid' do
-      let(:invalid_attributes) { { }.to_json }
+      let(:invalid_attributes) { {}.to_json }
 
       before { post '/measures', params: invalid_attributes, headers: headers }
 
