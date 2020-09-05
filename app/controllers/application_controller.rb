@@ -4,7 +4,13 @@ class ApplicationController < ActionController::API
 
   # called before every action on controllers
   before_action :authorize_request
-  attr_reader :current_user
+  attr_reader :current_user, :admin
+  before_action :admin?
+
+  def admin?
+    @admin = authorize_request[:admin]
+    raise(ExceptionHandler::MissingToken, Message.unauthorized) unless @admin
+  end
 
   private
 

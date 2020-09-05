@@ -1,6 +1,7 @@
 module V1
   class MeasuresController < ApplicationController
     before_action :set_measure, only: %i[show update destroy]
+    before_action :admin?, only: %i[create update destroy]
 
     def index
       @measure = current_user.measures
