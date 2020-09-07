@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   end
 
   scope module: :v1, constraints: ApiVersion.new('v1', true) do
+
+    get 'admin/measures', to: 'admin#index'
+
     resources :measures do
       resources :measurements
     end
