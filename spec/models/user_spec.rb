@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
   end
 
   subject { FactoryBot.create(:user)}
+
   it do
     should validate_uniqueness_of(:email).scoped_to(:id).ignoring_case_sensitivity
   end
