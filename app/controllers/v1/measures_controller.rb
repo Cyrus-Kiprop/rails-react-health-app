@@ -4,7 +4,7 @@ module V1
     before_action :admin?, only: %i[create update destroy]
 
     def index
-      @measure = current_user.measures
+      @measure = Measure.all
       json_response(@measure)
     end
 
