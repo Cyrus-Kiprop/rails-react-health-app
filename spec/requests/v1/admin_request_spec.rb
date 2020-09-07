@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "V1::Admins", type: :request do
-     # initialize test data
+RSpec.describe 'V1::Admins', type: :request do
+  # initialize test data
   let(:user) { create(:user) }
   let(:admin) { create(:user, admin: true) }
   let!(:measures) { create_list(:measure, 10, user_id: admin.id) }

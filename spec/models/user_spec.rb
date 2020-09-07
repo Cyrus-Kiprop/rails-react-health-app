@@ -19,5 +19,4 @@ RSpec.describe User, type: :model do
   end
 
   it { should validate_length_of(:password).is_at_least(6) }
-
 end
