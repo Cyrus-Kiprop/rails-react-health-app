@@ -8,11 +8,11 @@
 #
 #
 #create an Admin user first
-User.create!(name: "John Doe", email: "johndoe@gmail.com" password_digest: "password", admin: true)
+admin = User.create!(name: "John Doe", email: "johndoe@gmail.com" password_digest: "password", admin: true)
 
 # seed 50 records
 50.times do
-  measure = Measure.create!(body_part_name: Faker::Lorem.word, user_id: User.first.id )
+  measure = Measure.create!(body_part_name: Faker::Lorem.word, user_id: admin.id )
   measurement = measure.measurements.build(size: Faker::Number.number(digits: 3))
   measurement.save
 end
