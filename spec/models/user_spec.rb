@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
     should validate_length_of(:email).is_at_most(255)
   end
 
-  subject { FactoryBot.create(:user)}
+  subject { FactoryBot.create(:user) }
 
   it do
     should validate_uniqueness_of(:email).scoped_to(:id).ignoring_case_sensitivity
