@@ -128,6 +128,13 @@ bundle exec rspec
 
 <!-- USAGE EXAMPLES -->
 
+## Credentials
+### Default credentials
+
+| email             | Password      | Role  |
+| ------------------| ------------- | ----- |
+| johndoe@gmail.com | password      | Admin |
+
 ## Usage
 
 ### Fire up the server:
